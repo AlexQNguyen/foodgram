@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  get '/' => 'users#index'
+
+  get '/show' => 'users#show' 
+
+  get 'users/edit'
+  post '/register' => "sessions#register"
+  post '/login' => 'sessions#login'
+  get '/logout' => 'sessions#logout'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
