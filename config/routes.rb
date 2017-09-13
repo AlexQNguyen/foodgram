@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
+  get 'posts/:user_id' => 'posts#index'
+
+  get 'posts/show'
+
   get '/' => 'users#index'
 
-  get '/show' => 'users#show' 
+  get '/show' => 'users#show'
 
   get 'users/edit'
   post '/register' => "sessions#register"

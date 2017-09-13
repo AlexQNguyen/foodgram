@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     @user = User.create(user_params)
     if @user.valid?
       session[:user_id]= @user.id
-      redirect_to "/show"
+      redirect_to "/posts/#{current_user.id}"
     else
       flash[:errors] = @user.errors.full_messages
       redirect_to '/'
@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
     @user = User.find_by_email(params[:email])
     if @user && @user.authenticate(params[:password])
       session[:user_id]= @user.id
-      redirect_to "/show"
+      redirect_to "/posts/#{current_user.id}"
     else
       redirect_to '/' , notice: "Invaild Login"
     end
