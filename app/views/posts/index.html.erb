@@ -3,50 +3,51 @@
   <nav class="navbar navbar-light bg-light">
       <img src="/assets/images/instafood.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
     <h1>  InstaFood  </h1>
+    <h6 style="text-align:right"><a href='/logout'>Sign Out</a></h6>
   </nav>
 
   <div style="text-align:center" class="row">
     <h3>Welcome, <%= current_user.first_name %>!</h3>
-    <a href=''> New Post |</a><a href=''> Post by me |</a><a href=''> Post I liked </a>
+    <a href='/users/<%= current_user.id%>/posts/new'> New Post |</a>
+    <a href='/users/<%= current_user.id %>/posts/show'> Post by me |</a>
+    <a href='/users/<%= current_user.id %>/posts/likes/show'> Post I liked </a>
   </div>
 
-
+  <hr />
   <% @posts.each do |post| %>
 
-  <table>
-    <tbody>
-      <tr>
-        <td><a href="user/<%= post.user.id %>/show"> <%= post.user.name %> </a> Says:</td>
-        <td> <%= post.message %></td>
-          <% if post.user_id == current_user.id %>
-        <td><a href='/delete/<%=post.id%>'  data-method='delete'>Delete your post</a></td>
-          <% end %>
-      </tr>
-      <td>
-          <% if post.users_liked.include?(current_user) %>
+  <div style="text-align: center" class="list-group">
+    <h4 class="list-group-item-heading"><%= post.name %></h4>
+    <p class="list-group-item-text"><%= post.description %></p>
+    <h6>Post by: <%= post.user.first_name %> | on: <%= post.created_at.strftime("%B %d %Y") %> |
+        <% if post.user_id == current_user.id %>
+        <a href='/posts/<%=post.id%>/delete'  data-method='delete'>Delete</a>
+        <% end %>
+    </h6>
+    <% if post.users_liked.include?(current_user) %>
 
-            <form action='/user/<%=current_user.id %>/posts/<%= post.id%>/unlike' method='post'>
-              <input name="authenticity_token" value='<%= form_authenticity_token %>' type='hidden' />
-              <input type='hidden' name ='_method' value='delete'>
-              <input type='hidden' name='like[post_id]' value='<%= post.id %>'>
-              <input type='hidden' name='like[user_id]' value='<%= current_user.id%>'>
-              <input type='submit' value='Unlike' />
-            </form>
+      <form action='/likes/<%=current_user.id %>/<%= post.id%>/unlike' method='post'>
+        <input name="authenticity_token" value='<%= form_authenticity_token %>' type='hidden' />
+        <input type='hidden' name ='_method' value='delete'>
+        <input type='hidden' name='like[post_id]' value='<%= post.id %>'>
+        <input type='hidden' name='like[user_id]' value='<%= current_user.id%>'>
+        <input type='image' src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Love_Heart_SVG.svg/25px-Love_Heart_SVG.svg.png"  />
+      </form>
 
-          <% else %>
-          <form action='/likes' method='post'>
-            <input name="authenticity_token" value='<%= form_authenticity_token %>' type='hidden' />
-            <input type='hidden' name='like[post_id]' value='<%= post.id %>'>
-            <input type='hidden' name='like[user_id]' value='<%= current_user.id%>'>
-            <input type='submit' value='like' />
-          </form>
-          <% end %>
-
-      </td>
-      <td> <a href='/posts/<%= post.id %>/show'><%= post.users_liked.count %> People Liked this </a></td>
-    </tbody>
-  </table>
-  <hr />
+    <% else %>
+    <form action='/likes' method='post'>
+      <input name="authenticity_token" value='<%= form_authenticity_token %>' type='hidden' />
+      <input type='hidden' name='like[post_id]' value='<%= post.id %>'>
+      <input type='hidden' name='like[user_id]' value='<%= current_user.id%>'>
+      <input type='image' src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Ei-heart.svg/25px-Ei-heart.svg.png"/>
+    </form>
+    <% end %>
+      <% if post.likes.count < 2 %>
+        <p> <%= post.likes.count %> Like</p>
+      <% else %>
+        <p> <%= post.likes.count %> Likes</p>
+      <% end %>
   <% end %>
+  </div>
 
 </div>

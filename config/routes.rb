@@ -1,16 +1,24 @@
 Rails.application.routes.draw do
-  get 'posts/:user_id' => 'posts#index'
-
-  get 'posts/show'
 
   get '/' => 'users#index'
 
-  get '/show' => 'users#show'
+  get '/users/:user_id/posts' => 'posts#index'
+  get 'users/:user_id/posts/show' => 'posts#show'
+  get '/users/:user_id/posts/new' => 'posts#new'
+  post '/users/:user_id/posts/create' => 'posts#create'
+  delete '/posts/:post_id/delete' => 'posts#delete'
 
-  get 'users/edit'
+
+
+  get '/users/:user_id/posts/likes/show' => 'likes#show'
+  post '/likes' => 'likes#create'
+  delete '/likes/:user_id/:post_id/unlike' => 'likes#delete'
+
   post '/register' => "sessions#register"
   post '/login' => 'sessions#login'
   get '/logout' => 'sessions#logout'
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
