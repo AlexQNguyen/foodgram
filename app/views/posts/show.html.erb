@@ -1,33 +1,35 @@
-<div class="container">
-  <nav class="navbar navbar-light bg-light">
-      <img src="/assets/images/instafood.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-    <h1>  InstaFood  </h1>
-    <h6 style="text-align:right"><a href='/logout'>Sign Out</a></h6>
-  </nav>
+<div style=" background: linear-gradient(#00cc99, white, white)">
+  <div class="container">
+    <nav class="navbar navbar-light bg-light">
+        <img src="/assets/images/instafood.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+      <h1>  InstaFood  </h1>
+      <h6 style="text-align:right"><a href='/logout'>Sign Out</a></h6>
+    </nav>
 
-  <div style="text-align:center" class="row">
-    <h3>Post By: <%= current_user.first_name %>!</h3>
-    <a href='/users/<%= current_user.id %>/posts'> Home |</a>
-    <a href='/users/<%= current_user.id%>/posts/new'> New Post |</a>
-    <a href='/users/<%= current_user.id%>/posts/likes/show'> Post I liked </a>
-  </div>
-  <hr />
-  <% @posts.each do |post| %>
+    <div style="text-align:center" class="row">
+      <h3>Post By: <%= current_user.first_name %>!</h3>
+      <a href='/users/<%= current_user.id %>/posts'> Home |</a>
+      <a href='/users/<%= current_user.id%>/posts/new'> New Post |</a>
+      <a href='/users/<%= current_user.id%>/posts/likes/show'> Post I liked </a>
+    </div>
+    <hr />
+    <% @posts.each do |post| %>
 
-  <div style="text-align: center" class="list-group">
-    <h4 class="list-group-item-heading"><%= post.name %></h4>
-    <p class="list-group-item-text"><%= post.description %></p>
-    <h6>Post on: <%= post.created_at.strftime("%B %d %Y") %> |
-        <% if post.user_id == current_user.id %>
-        <a href='/posts/<%=post.id%>/delete'  data-method='delete'>Delete</a>
+    <div style="text-align: center" class="list-group">
+      <h4 class="list-group-item-heading"><%= post.name %></h4>
+      <p class="list-group-item-text"><%= post.description %></p>
+      <h6>Post on: <%= post.created_at.strftime("%B %d %Y") %> |
+          <% if post.user_id == current_user.id %>
+          <a href='/posts/<%=post.id%>/delete'  data-method='delete'>Delete</a>
+          <% end %>
+      </h6>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Love_Heart_SVG.svg/25px-Love_Heart_SVG.svg.png" alt='heart.jpg' />
+        <% if post.likes.count < 2 %>
+          <p> <%= post.likes.count %> Like</p>
+        <% else %>
+          <p> <%= post.likes.count %> Likes</p>
         <% end %>
-    </h6>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Love_Heart_SVG.svg/25px-Love_Heart_SVG.svg.png" alt='heart.jpg' />
-      <% if post.likes.count < 2 %>
-        <p> <%= post.likes.count %> Like</p>
-      <% else %>
-        <p> <%= post.likes.count %> Likes</p>
-      <% end %>
-  <% end %>
+    <% end %>
+    </div>
   </div>
 </div>

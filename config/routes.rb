@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
 
-  get '/' => 'users#index'
-
   get '/users/:user_id/posts' => 'posts#index'
-  get 'users/:user_id/posts/show' => 'posts#show'
-  get '/users/:user_id/posts/new' => 'posts#new'
+  get '/users/:user_id/posts/new' => 'posts#new', as: 'post_path'
   post '/users/:user_id/posts/create' => 'posts#create'
+  get '/users/:user_id/posts/show' => 'posts#show'
   delete '/posts/:post_id/delete' => 'posts#delete'
 
 
@@ -13,6 +11,9 @@ Rails.application.routes.draw do
   get '/users/:user_id/posts/likes/show' => 'likes#show'
   post '/likes' => 'likes#create'
   delete '/likes/:user_id/:post_id/unlike' => 'likes#delete'
+
+  get '/' => 'users#index'
+  get '/users/login' => 'users#login'
 
   post '/register' => "sessions#register"
   post '/login' => 'sessions#login'

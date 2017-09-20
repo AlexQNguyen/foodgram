@@ -5,13 +5,11 @@ class PostsController < ApplicationController
 
   def create
     @post= Post.create(post_params)
-    if @post.valid?
-      redirect_to "/users/#{current_user.id}/posts"
-    else
-      flash[:errors] = @post.errors.full_messages
-      redirect_to "/users/#{current_user.id}/posts/new"
-    end
 
+
+  end
+
+  def new
   end
 
   def show
@@ -25,7 +23,7 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:description, :user_id, :review, :name)
+    params.require(:post).permit(:image, :description, :user_id, :review, :name)
   end
   def check_session
     if !session[:user_id]

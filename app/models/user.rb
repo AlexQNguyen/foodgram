@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
 
   EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]+)\z/i
   validates :first_name, :last_name, presence: true, length: { in: 2..20 }
-  validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEX }
+  validates :user_name, presence: true, length: { in: 2..20 }, uniqueness: true
+  validates :email, presence: true, uniqueness: true, format: { with: EMAIL_REGEX }
   validates :password, presence: true, length: { minimum:8 }, on: :create
 
   before_save :email_lowercase, :name_cap
@@ -38,6 +39,7 @@ private
   def name_cap
     first_name.capitalize!
     last_name.capitalize!
+    user_name.capitalize!
   end
 
 end

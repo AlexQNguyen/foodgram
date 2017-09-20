@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170913022301) do
+ActiveRecord::Schema.define(version: 20170919015221) do
 
   create_table "likes", force: :cascade do |t|
     t.integer  "user_id"
@@ -28,8 +28,12 @@ ActiveRecord::Schema.define(version: 20170913022301) do
     t.text     "review"
     t.text     "name"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "posts", ["user_id"], name: "index_posts_on_user_id"

@@ -1,31 +1,32 @@
+<div style=" background: linear-gradient(#00cc99, white, white)">
+  <div class="container">
+    <nav class="navbar navbar-light bg-light">
+        <img src="/assets/images/instafood.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+      <h1>  InstaFood  </h1>
+      <h6 style="text-align:right"><a href='/logout'>Sign Out</a></h6>
+    </nav>
 
-<div class="container">
-  <nav class="navbar navbar-light bg-light">
-      <img src="/assets/images/instafood.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-    <h1>  InstaFood  </h1>
-    <h6 style="text-align:right"><a href='/logout'>Sign Out</a></h6>
-  </nav>
+    <div style="text-align:center" class="row">
+      <h3><%= current_user.first_name %>'s Likes! </h3>
+      <a href='/users/<%= current_user.id %>/posts'> Home |</a>
+      <a href='/users/<%= current_user.id%>/posts/new'> New Post |</a>
+      <a href='/users/<%= current_user.id %>/posts/show'> Post by me </a>
+    </div>
+    <hr />
+    <% @likes.each do |like| %>
 
-  <div style="text-align:center" class="row">
-    <h3><%= current_user.first_name %>'s Likes! </h3>
-    <a href='/users/<%= current_user.id %>/posts'> Home |</a>
-    <a href='/users/<%= current_user.id%>/posts/new'> New Post |</a>
-    <a href='/users/<%= current_user.id %>/posts/show'> Post by me </a>
+    <div style="text-align: center" class="list-group">
+      <h4 class="list-group-item-heading"><%= like.post.name %></h4>
+      <p class="list-group-item-text"><%= like.post.description %></p>
+      <h6>Post on: <%= like.post.created_at.strftime("%B %d %Y") %> |
+          <% if like.user.id == current_user.id %>
+          <a href='/posts/<%=like.post.id%>/delete'  data-method='delete'>Delete</a>
+          <% end %>
+      </h6>
+
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Love_Heart_SVG.svg/25px-Love_Heart_SVG.svg.png" alt='heart.jpg' />
+    <% end %>
+    </div>
+
   </div>
-  <hr />
-  <% @likes.each do |like| %>
-
-  <div style="text-align: center" class="list-group">
-    <h4 class="list-group-item-heading"><%= like.post.name %></h4>
-    <p class="list-group-item-text"><%= like.post.description %></p>
-    <h6>Post on: <%= like.post.created_at.strftime("%B %d %Y") %> |
-        <% if like.user.id == current_user.id %>
-        <a href='/posts/<%=like.post.id%>/delete'  data-method='delete'>Delete</a>
-        <% end %>
-    </h6>
-
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Love_Heart_SVG.svg/25px-Love_Heart_SVG.svg.png" alt='heart.jpg' />
-  <% end %>
-  </div>
-
 </div>

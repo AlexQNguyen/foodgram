@@ -3,5 +3,8 @@ class Post < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_many :users_liked, through: :likes, source: :user
 
+  has_attached_file :image, styles: { large: "600x600>", medium: "300x300>", thumb: "100x100#" } 
+
   validates :description, :name, presence: true, length: {minimum:3}
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
 end
