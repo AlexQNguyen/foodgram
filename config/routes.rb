@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   get '/users/:user_id/posts' => 'posts#index'
-  get '/users/:user_id/posts/new' => 'posts#new', as: 'post_path'
-  post '/users/:user_id/posts/create' => 'posts#create'
+  get '/users/:user_id/posts/new' => 'posts#new'
+  post '/users/:user_id/posts/create' => 'posts#create', as: 'post_path'
   get '/users/:user_id/posts/show' => 'posts#show'
   delete '/posts/:post_id/delete' => 'posts#delete'
 

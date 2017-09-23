@@ -4,12 +4,19 @@ class PostsController < ApplicationController
   end
 
   def create
+    params[:user_id] = Post.where("user_id=?", "#{current_user.id}" )
     @post= Post.create(post_params)
-
+    if @post.valid?
+      redirect_to "/users/#{current_user.id}/posts"
+    else
+      flash[:errors] = @post.errors.full_messages
+      redirect_to "/users/#{current_user.id}/posts/new"
+    end
 
   end
 
   def new
+    @post = Post.new
   end
 
   def show
