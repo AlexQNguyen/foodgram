@@ -1,7 +1,7 @@
 <div style=" background: linear-gradient(#00cc99, white, white)">
   <div class="container">
     <nav class="navbar navbar-light bg-light">
-        <img src="/assets/images/instafood.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+        <img src="" width="30" height="30" class="d-inline-block align-top" alt="">
       <h1>  InstaFood  </h1>
       <h6 style="text-align:right"><a href='/logout'>Sign Out</a></h6>
     </nav>
@@ -17,6 +17,7 @@
 
     <div style="text-align: center" class="list-group">
       <h4 class="list-group-item-heading"><%= post.name %></h4>
+      <%= image_tag post.image.url(:medium) %>
       <p class="list-group-item-text"><%= post.description %></p>
       <h6>Post on: <%= post.created_at.strftime("%B %d %Y") %> |
           <% if post.user_id == current_user.id %>

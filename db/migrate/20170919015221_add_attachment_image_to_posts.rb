@@ -1,11 +1,11 @@
 class AddAttachmentImageToPosts < ActiveRecord::Migration
-  def self.up
+  def up
     change_table :posts do |t|
       t.attachment :image
     end
   end
 
-  def self.down
+  def down
     remove_attachment :posts, :image
   end
 end

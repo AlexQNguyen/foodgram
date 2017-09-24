@@ -17,6 +17,7 @@
 
     <div style="text-align: center" class="list-group">
       <h4 class="list-group-item-heading"><%= like.post.name %></h4>
+      <%= image_tag like.post.image.url(:medium) %>
       <p class="list-group-item-text"><%= like.post.description %></p>
       <h6>Post on: <%= like.post.created_at.strftime("%B %d %Y") %> |
           <% if like.user.id == current_user.id %>
