@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
       session[:user_id]= @user.id
       redirect_to "/users/#{current_user.id}/posts"
     else
-      redirect_to '/' , notice: "Invaild Login"
+      redirect_to '/users/login' , notice: "Invaild Login"
     end
 
   end

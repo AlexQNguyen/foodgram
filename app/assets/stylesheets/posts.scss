@@ -1,3 +1,50 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+#formstyle{
+  margin-left: 25%;
+  margin-right: 10%;
+  width: 65%;
+  display: inline-block;
+  margin-bottom: 15px;
+
+}
+
+#post_name{
+  width: 61%;
+  margin: 0 auto;
+  margin-bottom: 12px;
+}
+
+#post_description{
+  vertical-align: middle;
+  rows: "8";
+  cols: "70";
+  width: 56%;
+  margin: 0 auto;
+  margin-bottom: 15px;
+}
+
+#post_review{
+  rows: "8";
+  cols: "70";
+  width: 60%;
+  margin: 0 auto;
+  vertical-align: middle;
+  margin-bottom: 15px;
+}
+#post_image{
+  vertical-align: middle;
+}
+
+.submit_post{
+  margin-top: 50px;
+  background: #0066A2;
+  color: white;
+  border-color: #0066A2;
+  font: bold 15px arial, sans-serif;
+  text-shadow:none;
+}
+  #button{
+    text-align: center;
+  }
