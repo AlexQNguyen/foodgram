@@ -22,7 +22,8 @@
       <p class="list-group-item-text"><%= post.description %></p>
       <h6>Post by: <%= post.user.user_name %> | on: <%= post.created_at.strftime("%B %d %Y") %> |
           <% if post.user_id == current_user.id %>
-          <a href='/posts/<%=post.id%>/delete'  data-method='delete'>Delete</a>
+          <a href='/posts/<%=post.id%>/delete'  data-method='delete'>Delete | </a>
+          <a href='/users/<%= post.user_id %>/posts/<%=post.id%>/edit'>Edit</a>
           <% end %>
       </h6>
       <% if post.users_liked.include?(current_user) %>

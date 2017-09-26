@@ -22,6 +22,20 @@ class PostsController < ApplicationController
     @posts = Post.where("user_id=?", "#{current_user.id}" )
   end
 
+  def edit
+    @user = User.find(params[:user_id])
+    @post = Post.find(params[:post_id])
+  end
+
+  def update
+    @post = Post.find(params[:post_id])
+      if @post.update_attribute(update_params)
+        redirect_to "/users/#{current_user.id}/posts"
+      else
+        redirect_to '/users/:user_id/posts/:post_id/edit'
+      end
+  end
+
   def delete
     Post.find(params[:post_id]).destroy
     redirect_to "/users/#{current_user.id}/posts"
