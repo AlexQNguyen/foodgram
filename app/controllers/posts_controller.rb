@@ -25,13 +25,15 @@ class PostsController < ApplicationController
   def edit
     @user = User.find(params[:user_id])
     @post = Post.find(params[:post_id])
+
   end
 
   def update
     @post = Post.find(params[:post_id])
-      if @post.update_attribute(update_params)
+      if @post.update(update_params)
         redirect_to "/users/#{current_user.id}/posts"
       else
+        flash[:errors] = @post.errors.full_messages
         redirect_to '/users/:user_id/posts/:post_id/edit'
       end
   end
@@ -44,6 +46,9 @@ class PostsController < ApplicationController
   private
   def post_params
     params.require(:post).permit(:image, :description, :user_id, :review, :name)
+  end
+  def update_params
+    params.require(:post).permit(:image, :description, :user_id, :post_id, :review, :name)
   end
   def check_session
     if !session[:user_id]

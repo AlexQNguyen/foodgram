@@ -15,20 +15,43 @@
     <hr />
     <form>
   <div style="text-align: center" class="list-group">
-      <%= image_tag @post.image.url(:medium) %>
-
-    <%= form_for (@post), url: post_path_url, html: { multipart: true } do |f| %>
-      <input type='hidden' name="post[post_id]"  value="<%=@post.id %>">
-      <input type='hidden' name="post[user_id]"  value="<%=current_user.id %>">
-      <textarea type='text' name="post[description]" ><%=@post.description %></textarea>
-      <textarea type='text' name="post[review]"><%=@post.review %></textarea>
-    <div>
-      <%= f.label :image %>
-      <%= f.file_field "<%= @post.image%>", :image%>
-    </div>
-    <div id="button">
-        <%= f.submit 'Create Post!', :class => 'submit_post' %>
-    </div>
+    <div class="container">
+      <% if flash[:errors] %>
+        <% flash[:errors].each do |error| %>
+        <p>
+          <%= error %>
+        </p>
+          <% end %>
       <% end %>
-    </form>
-  </div>
+      <% if flash[:notice] %>
+        <p style="color:green"> <%= flash[:notice] %>  </p>
+      <% end %>
+
+        <%= form_for (@post), url: post_path_update_path,  method: :patch, html: { multipart: true } do |f| %>
+        <div id="formstyle">
+
+            <%= image_tag @post.image.url(:medium) %><br/>
+
+          <input type='hidden' name="post[user_id]"  value="<%=current_user.id %>">
+          <input type='hidden' name="post[post_id]"  value="<%=@post.id %>">
+          <div >
+            <%= f.label :name %>
+            <%= f.text_field :name, class:"form-control" %>
+          </div>
+          <div >
+            <%= f.label :description %>
+            <%= f.text_area :description, class:"form-control" %>
+          </div>
+          <div >
+            <%= f.label :review %>
+            <%= f.text_area :review, class:"form-control"%>
+          </div>
+          <div style="margin-top: 20px;">
+          <%= f.file_field :image, class:"form-control-file" %>
+          </div>
+          <div id="button">
+              <%= f.submit 'Update Post!', class: "btn btn-primary" %>
+          </div>
+        </div>
+        <% end %>
+    </div>

@@ -12,30 +12,41 @@
       <a href='/users/<%= current_user.id%>/posts/likes/show'> Post I liked </a>
     </div>
     <hr />
+    <% if flash[:errors] %>
+      <% flash[:errors].each do |error| %>
+      <p>
+        <%= error %>
+      </p>
+        <% end %>
+    <% end %>
+    <% if flash[:notice] %>
+      <p style="color:green"> <%= flash[:notice] %>  </p>
+    <% end %>
     <div class="container">
-      <form id="formstyle">
-        <%= form_for (@post), url: post_path_url, html: { multipart: true } do |f| %>
-        <input type='hidden' name="post[user_id]"  value="<%=current_user.id %>">
-        <div >
-          <%= f.label :name %>
-          <%= f.text_field :name %>
-        </div>
-        <div >
-          <%= f.label :description %>
-          <%= f.text_area :description %>
-        </div>
-        <div >
-          <%= f.label :review %>
-          <%= f.text_area :review%>
-        </div>
-        <div >
-          <%= f.label :image %>
-          <%= f.file_field :image%>
-        </div>
-        <div id="button">
-            <%= f.submit 'Create Post!', :class => 'submit_post' %>
+
+        <%= form_for (@post), url: post_path_create_url, html: { multipart: true } do |f| %>
+        <div id="formstyle">
+          <input type='hidden' name="post[user_id]"  value="<%=current_user.id %>">
+          <div >
+            <%= f.label :name %>
+            <%= f.text_field :name, class:"form-control" %>
+          </div>
+          <div >
+            <%= f.label :description %>
+            <%= f.text_area :description, class:"form-control" %>
+          </div>
+          <div >
+            <%= f.label :review %>
+            <%= f.text_area :review, class:"form-control"%>
+          </div>
+          <div >
+            <%= f.label :image %>
+            <%= f.file_field :image, class: "form-control-file"%>
+          </div>
+          <div id="button">
+              <%= f.submit 'Create Post!', class: "btn btn-primary" %>
+          </div>
         </div>
         <% end %>
-      </form>
     </div>
 </div>
